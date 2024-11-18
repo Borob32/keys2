@@ -1,0 +1,116 @@
+HTML
+html<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Слайдер изображений</title>
+</head>
+<body>
+
+<div class="slider">
+    <div class="slider-container">
+        <img id="slide" src="image1.jpg" alt="Слайд">
+    </div>
+    <div class="controls">
+        <button id="prev" class="control-btn">Назад</button>
+        <button id="next" class="control-btn">Вперед</button>
+    </div>
+    <div class="status" id="status"></div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
+
+
+CSS (styles.css)
+cssbody {
+    font-family: 'Arial', sans-serif;
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.slider {
+    background-color: white;
+    border: 2px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    overflow: hidden;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
+}
+
+.slider-container {
+    position: relative;
+    width: 100%;
+    height: 400px; /* Высота слайдера */
+}
+
+.slider img {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.controls {
+    padding: 10px;
+}
+
+.control-btn {
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 5px;
+}
+
+.control-btn:hover {
+    background-color: #0056b3;
+}
+
+.status {
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+
+JavaScript (script.js)
+javascriptconst images = [
+    "image1.jpg",
+    "image2.jpg",
+    "image3.jpg",
+    "image4.jpg",
+    "image5.jpg"
+];
+
+let currentIndex = 0;
+
+const slide = document.getElementById("slide");
+const status = document.getElementById("status");
+
+function updateSlider() {
+    slide.src = images[currentIndex];
+    status.textContent = `Изображение ${currentIndex + 1} из ${images.length}`;
+}
+
+document.getElementById("next").addEventListener("click", () => {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateSlider();
+});
+
+document.getElementById("prev").addEventListener("click", () => {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateSlider();
+});
+
+// Инициализируем слайдер
+updateSlider();
